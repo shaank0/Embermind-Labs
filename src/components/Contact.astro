@@ -1,0 +1,226 @@
+---
+---
+<section class="contact" id="contact">
+  <div class="section__container">
+    <div class="section__header">
+      <span class="section__number">05</span>
+      <h2 class="section__title">CONTACT<span class="accent">_</span></h2>
+      <div class="section__line"></div>
+    </div>
+    <div class="contact__grid">
+      <div class="contact__info reveal">
+        <h3 class="contact__headline">Let's light<br>the path<span class="accent">.</span></h3>
+        <p class="contact__text">
+          Exploring AI for your organization? Want to upskill your team, or build
+          something real? Tell us where you're headed &mdash; we read every message.
+        </p>
+        <div class="contact__channels">
+          <div class="contact__channel">
+            <span class="contact__channel-label">EMAIL //</span>
+            <a href="mailto:hello@embermindlabs.com" class="contact__channel-value">hello@embermindlabs.com</a>
+          </div>
+          <div class="contact__channel">
+            <span class="contact__channel-label">CONNECT //</span>
+            <div class="contact__social-links">
+              <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" class="contact__social-link">LINKEDIN</a>
+              <a href="https://x.com/" target="_blank" rel="noopener noreferrer" class="contact__social-link">X / TWITTER</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="contact__form-wrapper reveal">
+        <form class="contact__form" id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+          <div class="form__group">
+            <label class="form__label" for="name">NAME_</label>
+            <input type="text" id="name" name="name" class="form__input" required placeholder="Your name">
+          </div>
+          <div class="form__group">
+            <label class="form__label" for="email">EMAIL_</label>
+            <input type="email" id="email" name="email" class="form__input" required placeholder="your@email.com">
+          </div>
+          <div class="form__group">
+            <label class="form__label" for="subject">INTEREST_</label>
+            <select id="subject" name="subject" class="form__input form__select">
+              <option value="">Select a topic</option>
+              <option value="consulting">AI Strategy &amp; Consulting</option>
+              <option value="education">AI Education &amp; Training</option>
+              <option value="implementation">Implementation &amp; Builds</option>
+              <option value="speaking">Speaking / Workshops</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form__group">
+            <label class="form__label" for="message">MESSAGE_</label>
+            <textarea id="message" name="message" class="form__input form__textarea" rows="5" required placeholder="Tell us about your idea or goal..."></textarea>
+          </div>
+          <button type="submit" class="btn btn--primary btn--full">SEND MESSAGE</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact {
+    background: var(--dark);
+    position: relative;
+  }
+
+  .contact::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right, var(--accent), transparent 50%);
+  }
+
+  .contact__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl);
+    align-items: start;
+  }
+
+  .contact__headline {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.1;
+    margin-bottom: var(--space-md);
+    letter-spacing: -0.02em;
+  }
+
+  .contact__text {
+    font-size: 1rem;
+    color: var(--gray-light);
+    line-height: 1.8;
+    margin-bottom: var(--space-lg);
+  }
+
+  .contact__channels {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .contact__channel-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--gray);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .contact__channel-value {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--accent);
+    transition: color 0.2s ease;
+  }
+
+  .contact__channel-value:hover {
+    color: var(--accent-bright);
+  }
+
+  .contact__social-links {
+    display: flex;
+    gap: var(--space-sm);
+  }
+
+  .contact__social-link {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--gray-light);
+    padding: 0.4rem 0.75rem;
+    border: 1px solid var(--gray-dark);
+    transition: all 0.3s ease;
+  }
+
+  .contact__social-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-glow);
+  }
+
+  .contact__form-wrapper {
+    background: var(--black);
+    padding: var(--space-lg);
+    border: 1px solid var(--gray-dark);
+    position: relative;
+  }
+
+  .contact__form-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--flame);
+  }
+
+  .form__group {
+    margin-bottom: var(--space-md);
+  }
+
+  .form__label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .form__input {
+    width: 100%;
+    background: var(--dark);
+    border: 1px solid var(--gray-dark);
+    color: var(--white);
+    font-family: var(--font-primary);
+    font-size: 0.95rem;
+    padding: 0.85rem 1rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+
+  .form__input::placeholder {
+    color: var(--gray);
+  }
+
+  .form__input:focus {
+    border-color: var(--accent);
+  }
+
+  .form__select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23ff7a1a' stroke-width='1.5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+  }
+
+  .form__textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  @media (max-width: 1024px) {
+    .contact__grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .contact__social-links {
+      flex-wrap: wrap;
+    }
+  }
+</style>

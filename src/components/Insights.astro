@@ -1,0 +1,106 @@
+---
+import BlogCard from './BlogCard.astro';
+
+interface Props {
+  posts: Array<{
+    id: string;
+    data: {
+      title: string;
+      description: string;
+      pubDate: Date;
+      category: string;
+      tags?: string[];
+    };
+  }>;
+}
+
+const { posts } = Astro.props;
+---
+<section class="insights" id="insights">
+  <div class="section__container">
+    <div class="section__header">
+      <span class="section__number">04</span>
+      <h2 class="section__title">INSIGHTS<span class="accent">_</span></h2>
+      <div class="section__line"></div>
+    </div>
+    <div class="insights__intro">
+      <p class="insights__intro-text">
+        Practical perspectives on applied AI &mdash; strategy, education, and the
+        craft of turning ideas into impact<span class="accent">.</span>
+      </p>
+    </div>
+    {posts.length > 0 ? (
+      <div class="insights__grid">
+        {posts.map((post) => (
+          <BlogCard
+            title={post.data.title}
+            description={post.data.description}
+            pubDate={post.data.pubDate}
+            category={post.data.category}
+            tags={post.data.tags}
+            slug={post.id}
+          />
+        ))}
+      </div>
+    ) : (
+      <p class="insights__empty">Insights are on the way. Check back soon &mdash; or subscribe below.</p>
+    )}
+    <div class="insights__actions">
+      <a href="/blog" class="btn btn--outline">VIEW ALL INSIGHTS</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .insights {
+    background: var(--black);
+    position: relative;
+  }
+
+  .insights__intro {
+    margin-bottom: var(--space-lg);
+    max-width: 600px;
+  }
+
+  .insights__intro-text {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--gray-light);
+  }
+
+  .insights__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin-bottom: var(--space-lg);
+  }
+
+  .insights__empty {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--gray-light);
+    letter-spacing: 0.05em;
+    padding: var(--space-lg) 0;
+    border-top: 1px solid var(--gray-dark);
+    border-bottom: 1px solid var(--gray-dark);
+    margin-bottom: var(--space-lg);
+  }
+
+  .insights__actions {
+    display: flex;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 1024px) {
+    .insights__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .insights__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

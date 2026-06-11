@@ -1,0 +1,242 @@
+---
+---
+<nav class="nav" id="nav">
+  <div class="nav__brand">
+    <a href="/" class="nav__logo" aria-label="EmberMind Labs home">
+      <span class="nav__spark" aria-hidden="true"></span>
+      <span class="nav__logo-ember">Ember</span><span class="nav__logo-mind">Mind</span>
+      <span class="nav__logo-labs">Labs</span>
+    </a>
+  </div>
+  <button class="nav__toggle" id="navToggle" aria-label="Toggle navigation">
+    <span class="nav__toggle-bar"></span>
+    <span class="nav__toggle-bar"></span>
+    <span class="nav__toggle-bar"></span>
+  </button>
+  <ul class="nav__links" id="navLinks">
+    <li><a href="/#about" class="nav__link">ABOUT</a></li>
+    <li><a href="/#services" class="nav__link">SERVICES</a></li>
+    <li><a href="/#approach" class="nav__link">APPROACH</a></li>
+    <li><a href="/blog" class="nav__link">INSIGHTS</a></li>
+    <li><a href="/#contact" class="nav__link nav__link--cta">GET STARTED</a></li>
+  </ul>
+</nav>
+
+<script>
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  const nav = document.getElementById('nav');
+
+  navToggle?.addEventListener('click', () => {
+    navLinks?.classList.toggle('active');
+    navToggle.classList.toggle('active');
+  });
+
+  navLinks?.querySelectorAll('.nav__link').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('active');
+      navToggle?.classList.remove('active');
+    });
+  });
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 80) {
+      nav?.classList.add('nav--scrolled');
+    } else {
+      nav?.classList.remove('nav--scrolled');
+    }
+  }, { passive: true });
+</script>
+
+<style is:global>
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 3rem;
+    background: rgba(10, 8, 7, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--gray-dark);
+    transition: all 0.3s ease;
+  }
+
+  .nav--scrolled {
+    padding: 0.75rem 3rem;
+    background: rgba(5, 4, 3, 0.95);
+    border-bottom-color: var(--accent-dim);
+  }
+
+  .nav__brand {
+    display: flex;
+    align-items: center;
+  }
+
+  .nav__logo {
+    display: flex;
+    align-items: baseline;
+    gap: 0.3rem;
+    font-size: 1.4rem;
+    letter-spacing: 0.01em;
+  }
+
+  .nav__spark {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    align-self: center;
+    margin-right: 0.15rem;
+    background: var(--flame);
+    box-shadow: 0 0 10px var(--accent), 0 0 18px var(--accent-glow-strong);
+    animation: emberFlicker 3s ease-in-out infinite;
+  }
+
+  .nav__logo-ember {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: 1.55rem;
+    color: var(--accent);
+    letter-spacing: 0.01em;
+  }
+
+  .nav__logo-mind {
+    font-family: var(--font-display);
+    font-weight: 900;
+    color: var(--white-pure);
+    letter-spacing: -0.01em;
+  }
+
+  .nav__logo-labs {
+    font-family: var(--font-display);
+    font-weight: 300;
+    color: var(--white);
+    letter-spacing: 0.02em;
+  }
+
+  .nav__toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: 1px solid var(--gray);
+    padding: 8px;
+    cursor: pointer;
+    z-index: 1001;
+  }
+
+  .nav__toggle-bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--white);
+    transition: all 0.3s ease;
+  }
+
+  .nav__links {
+    display: flex;
+    list-style: none;
+    gap: 0;
+    align-items: center;
+  }
+
+  .nav__link {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    padding: 0.5rem 1.25rem;
+    position: relative;
+    transition: color 0.2s ease;
+  }
+
+  .nav__link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 1.25rem;
+    right: 1.25rem;
+    height: 1px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+  }
+
+  .nav__link:hover {
+    color: var(--accent);
+  }
+
+  .nav__link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .nav__link--cta {
+    background: var(--accent);
+    color: var(--black);
+    clip-path: polygon(var(--clip-angle) 0%, 100% 0%, calc(100% - var(--clip-angle)) 100%, 0% 100%);
+    padding: 0.5rem 2rem 0.5rem 2.5rem;
+    margin-left: 1rem;
+    transition: background 0.2s ease;
+  }
+
+  .nav__link--cta:hover {
+    background: var(--accent-bright);
+    color: var(--black);
+  }
+
+  .nav__link--cta::after {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .nav {
+      padding: 1rem 1.5rem;
+    }
+
+    .nav__toggle {
+      display: flex;
+    }
+
+    .nav__links {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 80%;
+      max-width: 320px;
+      height: 100vh;
+      background: var(--dark);
+      flex-direction: column;
+      padding: 5rem 2rem 2rem;
+      border-left: 1px solid var(--gray-dark);
+      transition: right 0.3s ease;
+    }
+
+    .nav__links.active {
+      right: 0;
+    }
+
+    .nav__link {
+      padding: 1rem 0;
+      font-size: 0.9rem;
+      border-bottom: 1px solid var(--gray-dark);
+      width: 100%;
+    }
+
+    .nav__link--cta {
+      margin-left: 0;
+      margin-top: var(--space-sm);
+      text-align: center;
+      clip-path: none;
+      padding: 1rem;
+    }
+
+    .nav__link::after {
+      display: none;
+    }
+  }
+</style>

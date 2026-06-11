@@ -1,0 +1,73 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+<Layout title="Insights // EmberMind Labs" description="Practical perspectives on applied AI — strategy, education, and turning ideas into impact, from EmberMind Labs.">
+  <Nav />
+  <main class="blog-page">
+    <div class="section__container">
+      <div class="section__header">
+        <span class="section__number">INSIGHTS</span>
+        <h1 class="section__title">ALL INSIGHTS<span class="accent">_</span></h1>
+        <div class="section__line"></div>
+      </div>
+      <div class="blog__grid">
+        {posts.map(post => (
+          <BlogCard
+            title={post.data.title}
+            description={post.data.description}
+            pubDate={post.data.pubDate}
+            category={post.data.category}
+            tags={post.data.tags}
+            slug={post.id}
+          />
+        ))}
+      </div>
+      {posts.length === 0 && (
+        <p class="blog__empty">No insights published yet. Check back soon.</p>
+      )}
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .blog-page {
+    padding-top: 100px;
+    background: var(--black);
+    min-height: 100vh;
+  }
+
+  .blog__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+  }
+
+  .blog__empty {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--gray-light);
+    letter-spacing: 0.1em;
+    text-align: center;
+    padding: var(--space-xl) 0;
+  }
+
+  @media (max-width: 1024px) {
+    .blog__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .blog__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

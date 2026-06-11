@@ -1,0 +1,169 @@
+---
+---
+<section class="about" id="about">
+  <div class="section__container">
+    <div class="section__header">
+      <span class="section__number">01</span>
+      <h2 class="section__title">ABOUT<span class="accent">_</span></h2>
+      <div class="section__line"></div>
+    </div>
+    <div class="about__grid">
+      <div class="about__block about__block--main reveal">
+        <div class="about__tag">// WHO WE ARE</div>
+        <h3 class="about__headline">We turn AI curiosity into<br>confident, working capability<span class="accent">.</span></h3>
+        <p class="about__text">
+          EmberMind Labs is an AI consulting and education venture. We sit at the
+          intersection of strategy, teaching, and real implementation &mdash;
+          helping teams move past the hype and put artificial intelligence to
+          work where it actually matters.
+        </p>
+        <p class="about__text">
+          The spark of a good idea is only the beginning. Our job is to fan it
+          into something durable: a clear strategy, a team that understands the
+          tools, and systems that ship. We light the path from idea to impact.
+        </p>
+      </div>
+      <div class="about__block about__block--stats reveal">
+        <div class="about__stat-card">
+          <span class="about__stat-icon">&#9670;</span>
+          <span class="about__stat-title">CONSULTING</span>
+          <span class="about__stat-desc">Strategy, roadmaps, and honest guidance on where AI fits &mdash; and where it doesn't</span>
+        </div>
+        <div class="about__stat-card">
+          <span class="about__stat-icon">&#9650;</span>
+          <span class="about__stat-title">EDUCATION</span>
+          <span class="about__stat-desc">Workshops and training that build real fluency for teams, leaders, and learners</span>
+        </div>
+        <div class="about__stat-card">
+          <span class="about__stat-icon">&#10022;</span>
+          <span class="about__stat-title">IMPLEMENTATION</span>
+          <span class="about__stat-desc">Hands-on builds &mdash; from prototypes to production AI woven into your workflow</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about {
+    background: var(--dark);
+    position: relative;
+  }
+
+  .about::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right, var(--accent), transparent 50%);
+  }
+
+  .about__grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: var(--space-lg);
+    align-items: start;
+  }
+
+  .about__block--main {
+    padding-right: var(--space-lg);
+  }
+
+  .about__tag {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    margin-bottom: var(--space-md);
+  }
+
+  .about__headline {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    line-height: 1.2;
+    margin-bottom: var(--space-md);
+    letter-spacing: -0.01em;
+  }
+
+  .about__text {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--gray-light);
+    margin-bottom: var(--space-sm);
+  }
+
+  .about__block--stats {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .about__stat-card {
+    padding: var(--space-md);
+    border: 1px solid var(--gray-dark);
+    border-bottom: none;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .about__stat-card:last-child {
+    border-bottom: 1px solid var(--gray-dark);
+  }
+
+  .about__stat-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--accent);
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+  }
+
+  .about__stat-card:hover::before {
+    transform: scaleY(1);
+  }
+
+  .about__stat-card:hover {
+    background: var(--dark-mid);
+    border-color: var(--accent-dim);
+  }
+
+  .about__stat-icon {
+    font-size: 1.1rem;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .about__stat-title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .about__stat-desc {
+    font-size: 0.85rem;
+    color: var(--gray-light);
+    line-height: 1.5;
+    display: block;
+  }
+
+  @media (max-width: 768px) {
+    .about__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .about__block--main {
+      padding-right: 0;
+    }
+  }
+</style>

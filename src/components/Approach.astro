@@ -1,0 +1,231 @@
+---
+const steps = [
+  {
+    n: '01',
+    title: 'SPARK',
+    desc: 'We listen first. Through discovery sessions we map your goals, constraints, and the ideas worth pursuing.',
+  },
+  {
+    n: '02',
+    title: 'FRAME',
+    desc: 'We shape a focused strategy — the right use cases, tools, and guardrails — and a plan your team believes in.',
+  },
+  {
+    n: '03',
+    title: 'BUILD',
+    desc: 'We prototype and implement alongside you, teaching as we go so capability stays in-house.',
+  },
+  {
+    n: '04',
+    title: 'IGNITE',
+    desc: 'We launch, measure impact, and hand over the knowledge and systems to keep momentum burning.',
+  },
+];
+
+const focus = [
+  'GENERATIVE AI', 'LLMs', 'AI AGENTS', 'RAG', 'PROMPT ENGINEERING',
+  'WORKFLOW AUTOMATION', 'DATA STRATEGY', 'AI LITERACY', 'CHANGE MANAGEMENT',
+  'RESPONSIBLE AI', 'RAPID PROTOTYPING', 'TEAM ENABLEMENT',
+];
+---
+<section class="approach" id="approach">
+  <div class="section__container">
+    <div class="section__header">
+      <span class="section__number">03</span>
+      <h2 class="section__title">APPROACH<span class="accent">_</span></h2>
+      <div class="section__line"></div>
+    </div>
+    <div class="approach__intro reveal">
+      <p class="approach__intro-text">
+        A simple, proven path &mdash; from the first spark of an idea to lasting impact<span class="accent">.</span>
+      </p>
+    </div>
+    <div class="approach__grid">
+      {steps.map((step) => (
+        <div class="approach__step reveal">
+          <span class="approach__step-number">{step.n}</span>
+          <h3 class="approach__step-title">{step.title}</h3>
+          <p class="approach__step-desc">{step.desc}</p>
+        </div>
+      ))}
+    </div>
+    <div class="approach__focus">
+      <span class="approach__focus-label">FOCUS AREAS //</span>
+      <div class="approach__focus-scroll">
+        <div class="approach__focus-track">
+          {focus.map((item) => <span class="approach__focus-item">{item}</span>)}
+          {focus.map((item) => <span class="approach__focus-item" aria-hidden="true">{item}</span>)}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .approach {
+    background: var(--dark);
+    position: relative;
+  }
+
+  .approach::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--accent), transparent);
+  }
+
+  .approach__intro {
+    margin-bottom: var(--space-lg);
+    max-width: 600px;
+  }
+
+  .approach__intro-text {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--gray-light);
+  }
+
+  .approach__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-bottom: var(--space-xl);
+  }
+
+  .approach__step {
+    padding: var(--space-md);
+    border: 1px solid var(--gray-dark);
+    border-right: none;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .approach__step:last-child {
+    border-right: 1px solid var(--gray-dark);
+  }
+
+  .approach__step::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--flame);
+    transition: width 0.4s ease;
+  }
+
+  .approach__step:hover::before {
+    width: 100%;
+  }
+
+  .approach__step:hover {
+    background: var(--dark-mid);
+    border-color: var(--accent-dim);
+  }
+
+  .approach__step-number {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    display: block;
+    margin-bottom: var(--space-sm);
+  }
+
+  .approach__step-title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 1.5rem;
+    letter-spacing: 0.02em;
+    margin-bottom: var(--space-sm);
+  }
+
+  .approach__step-desc {
+    font-size: 0.88rem;
+    color: var(--gray-light);
+    line-height: 1.7;
+  }
+
+  .approach__focus {
+    border-top: 1px solid var(--gray-dark);
+    padding-top: var(--space-md);
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    overflow: hidden;
+  }
+
+  .approach__focus-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: var(--gray);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .approach__focus-scroll {
+    overflow: hidden;
+    flex: 1;
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  }
+
+  .approach__focus-track {
+    display: flex;
+    gap: var(--space-md);
+    animation: marquee 35s linear infinite;
+    width: max-content;
+  }
+
+  .approach__focus-item {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--gray-light);
+    white-space: nowrap;
+    padding: 0.3rem 0.75rem;
+    border: 1px solid var(--gray-dark);
+    transition: all 0.3s ease;
+  }
+
+  .approach__focus-item:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  @media (max-width: 1024px) {
+    .approach__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .approach__step {
+      border-right: 1px solid var(--gray-dark);
+    }
+
+    .approach__step:nth-child(odd) {
+      border-right: none;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .approach__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .approach__step {
+      border-right: 1px solid var(--gray-dark);
+      border-bottom: none;
+    }
+
+    .approach__step:last-child {
+      border-bottom: 1px solid var(--gray-dark);
+    }
+  }
+</style>

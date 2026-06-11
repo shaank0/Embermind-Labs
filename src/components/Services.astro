@@ -1,0 +1,237 @@
+---
+---
+<section class="services" id="services">
+  <div class="section__container">
+    <div class="section__header">
+      <span class="section__number">02</span>
+      <h2 class="section__title">SERVICES<span class="accent">_</span></h2>
+      <div class="section__line"></div>
+    </div>
+    <div class="services__grid">
+      <article class="service-card reveal">
+        <div class="service-card__number">01</div>
+        <div class="service-card__icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="24" cy="24" r="18"/>
+            <path d="M24 6v8M24 34v8M6 24h8M34 24h8"/>
+            <circle cx="24" cy="24" r="6"/>
+          </svg>
+        </div>
+        <h3 class="service-card__title">AI STRATEGY<br>& CONSULTING</h3>
+        <p class="service-card__desc">
+          Cut through the noise. We assess where you are, find where AI creates
+          real leverage, and build a roadmap you can actually execute.
+        </p>
+        <ul class="service-card__list">
+          <li>AI Readiness Assessment</li>
+          <li>Opportunity &amp; Use-Case Mapping</li>
+          <li>Roadmaps &amp; Governance</li>
+          <li>Tooling &amp; Vendor Selection</li>
+        </ul>
+        <div class="service-card__cta">
+          <a href="#contact" class="service-card__link">LEARN MORE &rarr;</a>
+        </div>
+      </article>
+
+      <article class="service-card service-card--featured reveal">
+        <div class="service-card__number">02</div>
+        <div class="service-card__icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M24 6L6 14l18 8 18-8-18-8z"/>
+            <path d="M6 24l18 8 18-8"/>
+            <path d="M6 34l18 8 18-8"/>
+          </svg>
+        </div>
+        <h3 class="service-card__title">AI EDUCATION<br>& TRAINING</h3>
+        <p class="service-card__desc">
+          Build lasting fluency. Hands-on workshops and programs that take
+          teams, leaders, and learners from cautious to capable.
+        </p>
+        <ul class="service-card__list">
+          <li>Team &amp; Leadership Workshops</li>
+          <li>Prompting &amp; Practical AI Skills</li>
+          <li>Custom Curriculum Design</li>
+          <li>Cohort &amp; 1:1 Programs</li>
+        </ul>
+        <div class="service-card__cta">
+          <a href="#contact" class="service-card__link">LEARN MORE &rarr;</a>
+        </div>
+      </article>
+
+      <article class="service-card reveal">
+        <div class="service-card__number">03</div>
+        <div class="service-card__icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M18 6l-2 8-8 2 8 2 2 8 2-8 8-2-8-2-2-8z"/>
+            <path d="M34 24l-1.5 5-5 1.5 5 1.5 1.5 5 1.5-5 5-1.5-5-1.5-1.5-5z"/>
+          </svg>
+        </div>
+        <h3 class="service-card__title">IMPLEMENTATION<br>& BUILDS</h3>
+        <p class="service-card__desc">
+          From idea to impact. We prototype, integrate, and ship AI into your
+          real workflows &mdash; with your team beside us the whole way.
+        </p>
+        <ul class="service-card__list">
+          <li>Rapid Prototyping &amp; POCs</li>
+          <li>Workflow &amp; Process Automation</li>
+          <li>LLM &amp; Agent Integration</li>
+          <li>Deployment &amp; Enablement</li>
+        </ul>
+        <div class="service-card__cta">
+          <a href="#contact" class="service-card__link">LEARN MORE &rarr;</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  .services {
+    background: var(--black);
+    position: relative;
+  }
+
+  .services__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+  }
+
+  .service-card {
+    padding: var(--space-lg) var(--space-md);
+    border: 1px solid var(--gray-dark);
+    border-right: none;
+    position: relative;
+    transition: all 0.4s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .service-card:last-child {
+    border-right: 1px solid var(--gray-dark);
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gray-dark);
+    transition: background 0.3s ease;
+  }
+
+  .service-card:hover::before {
+    background: var(--flame);
+  }
+
+  .service-card:hover {
+    background: var(--dark);
+    transform: translateY(-4px);
+    border-color: var(--accent-dim);
+  }
+
+  .service-card--featured {
+    background: var(--dark);
+    border-color: var(--accent-dim);
+  }
+
+  .service-card--featured::before {
+    background: var(--flame);
+    height: 3px;
+  }
+
+  .service-card__number {
+    font-family: var(--font-mono);
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--gray-dark);
+    line-height: 1;
+    margin-bottom: var(--space-md);
+  }
+
+  .service-card--featured .service-card__number {
+    color: var(--accent-dim);
+  }
+
+  .service-card__icon {
+    width: 48px;
+    height: 48px;
+    color: var(--accent);
+    margin-bottom: var(--space-md);
+  }
+
+  .service-card__title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 1.5rem;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+    margin-bottom: var(--space-sm);
+  }
+
+  .service-card__desc {
+    font-size: 0.9rem;
+    color: var(--gray-light);
+    line-height: 1.7;
+    margin-bottom: var(--space-md);
+  }
+
+  .service-card__list {
+    list-style: none;
+    margin-bottom: var(--space-md);
+    flex: 1;
+  }
+
+  .service-card__list li {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--gray-dark);
+    color: var(--gray-light);
+    position: relative;
+    padding-left: 1rem;
+  }
+
+  .service-card__list li::before {
+    content: '\203A';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .service-card__cta {
+    margin-top: auto;
+  }
+
+  .service-card__link {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    transition: color 0.2s ease;
+  }
+
+  .service-card__link:hover {
+    color: var(--accent-bright);
+  }
+
+  @media (max-width: 1024px) {
+    .services__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .service-card {
+      border-right: 1px solid var(--gray-dark);
+      border-bottom: none;
+    }
+
+    .service-card:last-child {
+      border-bottom: 1px solid var(--gray-dark);
+    }
+  }
+</style>

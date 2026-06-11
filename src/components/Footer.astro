@@ -1,0 +1,149 @@
+---
+const year = new Date().getFullYear();
+---
+<footer class="footer">
+  <div class="footer__container">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <a href="/" class="footer__logo" aria-label="EmberMind Labs home">
+          <span class="footer__spark" aria-hidden="true"></span>
+          <span class="footer__logo-ember">Ember</span><span class="footer__logo-mind">Mind</span> <span class="footer__logo-labs">Labs</span>
+        </a>
+        <p class="footer__tagline">AI consulting &amp; education.<br>Lighting the path from idea to impact.</p>
+      </div>
+      <div class="footer__nav">
+        <a href="/#about" class="footer__link">ABOUT</a>
+        <a href="/#services" class="footer__link">SERVICES</a>
+        <a href="/#approach" class="footer__link">APPROACH</a>
+        <a href="/blog" class="footer__link">INSIGHTS</a>
+        <a href="/#contact" class="footer__link">CONTACT</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span class="footer__copy">&copy; {year} EMBERMIND LABS. ALL RIGHTS RESERVED.</span>
+      <span class="footer__status">FROM IDEA TO <span class="accent">IMPACT</span></span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--black-deep);
+    border-top: 1px solid var(--gray-dark);
+  }
+
+  .footer__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  .footer__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-lg);
+    border-bottom: 1px solid var(--gray-dark);
+  }
+
+  .footer__logo {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .footer__spark {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    margin-right: 0.15rem;
+    background: var(--flame);
+    box-shadow: 0 0 8px var(--accent);
+  }
+
+  .footer__logo-ember {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: 1.35rem;
+    color: var(--accent);
+  }
+
+  .footer__logo-mind {
+    font-family: var(--font-display);
+    font-weight: 900;
+    color: var(--white-pure);
+  }
+
+  .footer__logo-labs {
+    font-family: var(--font-display);
+    font-weight: 300;
+    color: var(--white);
+  }
+
+  .footer__tagline {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--gray);
+    letter-spacing: 0.1em;
+    line-height: 1.6;
+  }
+
+  .footer__nav {
+    display: flex;
+    gap: var(--space-md);
+  }
+
+  .footer__link {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--gray-light);
+    transition: color 0.2s ease;
+  }
+
+  .footer__link:hover {
+    color: var(--accent);
+  }
+
+  .footer__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer__copy {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--gray);
+    letter-spacing: 0.1em;
+  }
+
+  .footer__status {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--gray);
+    letter-spacing: 0.1em;
+  }
+
+  @media (max-width: 768px) {
+    .footer__top {
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .footer__nav {
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+
+    .footer__bottom {
+      flex-direction: column;
+      gap: var(--space-sm);
+      text-align: center;
+    }
+  }
+</style>

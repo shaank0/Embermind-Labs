@@ -1,0 +1,141 @@
+---
+import Layout from './Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  frontmatter: {
+    title: string;
+    description: string;
+    pubDate: Date;
+    category?: string;
+    tags?: string[];
+  };
+}
+
+const { frontmatter } = Astro.props;
+---
+<Layout title={`${frontmatter.title} // EmberMind Labs`} description={frontmatter.description}>
+  <Nav />
+  <article class="post">
+    <div class="post__container">
+      <header class="post__header">
+        <div class="post__meta">
+          {frontmatter.category && <span class="post__category">{frontmatter.category.toUpperCase()}</span>}
+        </div>
+        <h1 class="post__title">{frontmatter.title}</h1>
+        <div class="post__date">
+          <time datetime={frontmatter.pubDate.toISOString()}>
+            {frontmatter.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+          </time>
+        </div>
+        {frontmatter.tags && frontmatter.tags.length > 0 && (
+          <div class="post__tags">
+            {frontmatter.tags.map((tag) => <span class="post__tag">{tag}</span>)}
+          </div>
+        )}
+      </header>
+      <div class="prose">
+        <slot />
+      </div>
+      <div class="post__footer">
+        <a href="/blog" class="post__back">&larr; ALL INSIGHTS</a>
+      </div>
+    </div>
+  </article>
+  <Footer />
+</Layout>
+
+<style>
+  .post {
+    padding-top: 120px;
+    background: var(--black);
+    min-height: 100vh;
+  }
+
+  .post__container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 var(--space-md) var(--space-xl);
+  }
+
+  .post__header {
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--gray-dark);
+  }
+
+  .post__meta {
+    display: flex;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+    flex-wrap: wrap;
+  }
+
+  .post__category {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: var(--black);
+    background: var(--accent);
+    padding: 0.2rem 0.5rem;
+  }
+
+  .post__title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-sm);
+  }
+
+  .post__date {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--gray-light);
+    margin-bottom: var(--space-sm);
+  }
+
+  .post__tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .post__tag {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--gray-light);
+    padding: 0.2rem 0.5rem;
+    border: 1px solid var(--gray-dark);
+    transition: all 0.3s ease;
+  }
+
+  .post__tag:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .post__footer {
+    margin-top: var(--space-lg);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--gray-dark);
+  }
+
+  .post__back {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    transition: color 0.2s ease;
+  }
+
+  .post__back:hover {
+    color: var(--accent-bright);
+  }
+</style>
