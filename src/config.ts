@@ -3,7 +3,7 @@
 export const site = {
   name: 'EmberMind Labs',
   tagline: 'Lighting the path from idea to impact',
-  email: 'hello@embermindlabs.com',
+  email: 'will@embermindlabs.ai',
   linkedin: 'https://www.linkedin.com/in/willspence-it/',
   x: 'https://x.com/WillsTech2',
 };
