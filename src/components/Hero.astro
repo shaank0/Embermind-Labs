@@ -1,6 +1,7 @@
 ---
 const practice = [
   { n: '03', name: 'Implementation & Builds', state: 'implement', href: '#services' },
+  { n: '↳', name: 'Automation & Processes', state: 'automate', href: '#services', sub: true },
   { n: '02', name: 'Education & Training', state: 'educate', href: '#services' },
   { n: '01', name: 'AI Strategy & Consulting', state: 'consult', href: '#services' },
 ];
@@ -37,7 +38,7 @@ const chips = [
         <div class="stack-head"><span>EmberMind // practice</span><span>3 pillars</span></div>
         <ol>
           {practice.map((p) => (
-            <li>
+            <li class:list={{ 'stack-sub': p.sub }}>
               <a href={p.href}>
                 <span class="stack-n">{p.n}</span>
                 <span class="stack-name">{p.name}</span>
@@ -220,6 +221,21 @@ const chips = [
   .stack li a:hover { background: var(--ink-3); }
 
   .stack-n { color: var(--muted-dark); }
+
+  /* Sub-practice nested under the row above it */
+  .stack-sub a {
+    padding-top: 11px;
+    padding-bottom: 11px;
+    padding-left: 34px;
+    background: rgba(255, 122, 26, 0.04);
+  }
+
+  .stack-sub .stack-n { color: var(--accent); }
+
+  .stack-sub .stack-name {
+    font-weight: 600;
+    color: var(--soft-dark);
+  }
 
   .stack-name {
     font-weight: 700;
