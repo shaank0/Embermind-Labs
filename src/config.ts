@@ -4,8 +4,8 @@ export const site = {
   name: 'EmberMind Labs',
   tagline: 'Lighting the path from idea to impact',
   email: 'hello@embermindlabs.com',
-  linkedin: 'https://www.linkedin.com/',
-  x: 'https://x.com/',
+  linkedin: 'https://www.linkedin.com/in/willspence-it/',
+  x: 'https://x.com/WillsTech2',
 };
 
 // Contact form backend (https://formspree.io). Create a form there, then paste
