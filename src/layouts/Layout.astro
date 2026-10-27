@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
 
 interface Props {
   title?: string;
@@ -10,25 +12,35 @@ const {
   title = 'EmberMind Labs // AI Consulting & Education',
   description = 'EmberMind Labs — AI consulting and education. Lighting the path from idea to impact. Strategy, training, and hands-on implementation that turns AI potential into real results.',
 } = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0a0807" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonical} />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;700;900&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;700;800;900&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet" />
     <title>{title}</title>
   </head>
   <body>
-    <slot />
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Nav />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
     <script>
       // Scroll reveal for elements with .reveal class
       const revealObserver = new IntersectionObserver((entries) => {
@@ -44,30 +56,6 @@ const {
       });
 
       document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-      // Smooth scroll for anchor links with nav offset
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', (e) => {
-          const href = anchor.getAttribute('href');
-          if (!href || href === '#') return;
-          const target = document.querySelector(href);
-          if (target) {
-            e.preventDefault();
-            const nav = document.getElementById('nav');
-            const navHeight = nav ? nav.offsetHeight : 0;
-            const targetPos = target.getBoundingClientRect().top + window.scrollY - navHeight;
-            window.scrollTo({ top: targetPos, behavior: 'smooth' });
-          }
-        });
-      });
-
-      // Stagger card reveals
-      document.querySelectorAll('.service-card').forEach((card, i) => {
-        (card as HTMLElement).style.transitionDelay = `${i * 0.15}s`;
-      });
-      document.querySelectorAll('.content-card').forEach((card, i) => {
-        (card as HTMLElement).style.transitionDelay = `${i * 0.1}s`;
-      });
     </script>
   </body>
 </html>

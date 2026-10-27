@@ -1,6 +1,4 @@
 ---
-import BlogCard from './BlogCard.astro';
-
 interface Props {
   posts: Array<{
     id: string;
@@ -15,92 +13,214 @@ interface Props {
 }
 
 const { posts } = Astro.props;
+const [lead, ...rest] = posts;
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+const label = (p: Props['posts'][number]) => p.data.tags?.[0] ?? p.data.category;
 ---
 <section class="insights" id="insights">
-  <div class="section__container">
-    <div class="section__header">
-      <span class="section__number">04</span>
-      <h2 class="section__title">INSIGHTS<span class="accent">_</span></h2>
-      <div class="section__line"></div>
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="section-title">Insights</h2>
+      <a class="stamp" href="/blog">All insights →</a>
     </div>
-    <div class="insights__intro">
-      <p class="insights__intro-text">
-        Practical perspectives on applied AI &mdash; strategy, education, and the
-        craft of turning ideas into impact<span class="accent">.</span>
-      </p>
-    </div>
-    {posts.length > 0 ? (
-      <div class="insights__grid">
-        {posts.map((post) => (
-          <BlogCard
-            title={post.data.title}
-            description={post.data.description}
-            pubDate={post.data.pubDate}
-            category={post.data.category}
-            tags={post.data.tags}
-            slug={post.id}
-          />
-        ))}
+    {lead ? (
+      <div class="lead-grid">
+        <a class="lead-story" href={`/blog/${lead.id}`}>
+          <div class="art" aria-hidden="true">
+            <svg viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice">
+              <defs>
+                <radialGradient id="emberGlow" cx="70%" cy="55%" r="55%">
+                  <stop offset="0" stop-color="#ff7a1a" stop-opacity="0.55" />
+                  <stop offset="0.5" stop-color="#e8350d" stop-opacity="0.18" />
+                  <stop offset="1" stop-color="#0a0807" stop-opacity="0" />
+                </radialGradient>
+                <linearGradient id="emberLine" x1="0" x2="1">
+                  <stop offset="0" stop-color="#e8350d" />
+                  <stop offset="0.5" stop-color="#ff7a1a" />
+                  <stop offset="1" stop-color="#ffcf5c" />
+                </linearGradient>
+              </defs>
+              <rect width="800" height="400" fill="#0a0807" />
+              <rect width="800" height="400" fill="url(#emberGlow)" />
+              <g stroke="#2e2420" stroke-width="1">
+                {Array.from({ length: 12 }, (_, i) => <line x1="0" x2="800" y1={i * 34} y2={i * 34} />)}
+              </g>
+              <path d="M40 330 C 200 320, 300 260, 420 220 S 640 120, 760 70" fill="none" stroke="url(#emberLine)" stroke-width="4" stroke-linecap="round" />
+              {[[120, 318], [260, 285], [420, 220], [560, 160], [700, 92]].map(([x, y], i) => (
+                <circle cx={x} cy={y} r={i === 4 ? 9 : 6} fill={i === 4 ? '#ffcf5c' : '#ff7a1a'} />
+              ))}
+              <text x="40" y="60" fill="#9a8f88" font-family="JetBrains Mono, monospace" font-size="16" letter-spacing="3">IDEA → IMPACT</text>
+            </svg>
+          </div>
+          <span class="kicker">Insight · {label(lead)}</span>
+          <h3 class="lead-title">{lead.data.title}</h3>
+          <p>{lead.data.description}</p>
+          <div class="byline">
+            <span class="avatar">EM</span>
+            <span>EmberMind Labs</span>
+            <span class="dot">•</span>
+            <time datetime={lead.data.pubDate.toISOString()}>{fmt(lead.data.pubDate)}</time>
+          </div>
+        </a>
+        <aside class="lead-stack">
+          <div class="stack-label">Latest</div>
+          {rest.map((p) => (
+            <a class="lead-item" href={`/blog/${p.id}`}>
+              <div class="meta-row"><span>{label(p)}</span><span>{fmt(p.data.pubDate)}</span></div>
+              <h3>{p.data.title}</h3>
+            </a>
+          ))}
+          <div class="lead-note">
+            <p>
+              Practical perspectives on applied AI &mdash; strategy, education, and
+              the craft of turning ideas into impact. More on the way.
+            </p>
+            <a class="stamp" href="/blog">Browse all insights →</a>
+          </div>
+        </aside>
       </div>
     ) : (
-      <p class="insights__empty">Insights are on the way. Check back soon &mdash; or subscribe below.</p>
+      <p class="insights-empty">Insights are on the way. Check back soon.</p>
     )}
-    <div class="insights__actions">
-      <a href="/blog" class="btn btn--outline">VIEW ALL INSIGHTS</a>
-    </div>
   </div>
 </section>
 
 <style>
-  .insights {
-    background: var(--black);
-    position: relative;
-  }
-
-  .insights__intro {
-    margin-bottom: var(--space-lg);
-    max-width: 600px;
-  }
-
-  .insights__intro-text {
-    font-size: 1.25rem;
-    line-height: 1.6;
-    color: var(--gray-light);
-  }
-
-  .insights__grid {
+  .lead-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0;
-    margin-bottom: var(--space-lg);
+    grid-template-columns: 1.6fr 1fr;
+    gap: 40px;
   }
 
-  .insights__empty {
-    font-family: var(--font-mono);
-    font-size: 0.9rem;
-    color: var(--gray-light);
-    letter-spacing: 0.05em;
-    padding: var(--space-lg) 0;
-    border-top: 1px solid var(--gray-dark);
-    border-bottom: 1px solid var(--gray-dark);
-    margin-bottom: var(--space-lg);
-  }
-
-  .insights__actions {
+  .lead-story {
     display: flex;
-    gap: var(--space-sm);
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .lead-story .art {
+    overflow: hidden;
+    aspect-ratio: 16 / 8;
+    margin-bottom: 6px;
+    border-radius: var(--r);
+    background: var(--ink);
+  }
+
+  .lead-story .art svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .lead-title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(26px, 3vw, 38px);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+  }
+
+  .lead-story:hover .lead-title { color: var(--accent-ink); }
+
+  .lead-story > p {
+    font-size: 17px;
+    color: var(--muted);
+  }
+
+  .byline {
+    display: flex;
     flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    font-size: 13.5px;
+    color: var(--muted);
   }
 
-  @media (max-width: 1024px) {
-    .insights__grid {
-      grid-template-columns: 1fr 1fr;
-    }
+  .avatar {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--black);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
   }
 
-  @media (max-width: 768px) {
-    .insights__grid {
-      grid-template-columns: 1fr;
+  .lead-stack {
+    padding-left: 32px;
+    border-left: 1px solid var(--line);
+  }
+
+  .stack-label {
+    margin-bottom: 10px;
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .lead-item {
+    display: block;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .lead-item:first-of-type { border-top: 1px solid var(--line); }
+
+  .lead-item h3 {
+    margin-top: 4px;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 17px;
+    line-height: 1.25;
+  }
+
+  .lead-item:hover h3 { color: var(--accent-ink); }
+
+  .meta-row {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .meta-row span:first-child {
+    font-weight: 700;
+    color: var(--accent-ink);
+  }
+
+  .lead-note {
+    padding: 18px 0;
+  }
+
+  .lead-note p {
+    margin-bottom: 10px;
+    color: var(--muted);
+  }
+
+  .insights-empty {
+    padding: 40px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    font-family: var(--font-mono);
+    color: var(--muted);
+  }
+
+  @media (max-width: 900px) {
+    .lead-grid { grid-template-columns: 1fr; }
+
+    .lead-stack {
+      padding-left: 0;
+      border-left: 0;
     }
   }
 </style>

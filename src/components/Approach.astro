@@ -2,230 +2,201 @@
 const steps = [
   {
     n: '01',
-    title: 'SPARK',
+    title: 'Spark',
     desc: 'We listen first. Through discovery sessions we map your goals, constraints, and the ideas worth pursuing.',
   },
   {
     n: '02',
-    title: 'FRAME',
+    title: 'Frame',
     desc: 'We shape a focused strategy — the right use cases, tools, and guardrails — and a plan your team believes in.',
   },
   {
     n: '03',
-    title: 'BUILD',
+    title: 'Build',
     desc: 'We prototype and implement alongside you, teaching as we go so capability stays in-house.',
   },
   {
     n: '04',
-    title: 'IGNITE',
+    title: 'Ignite',
     desc: 'We launch, measure impact, and hand over the knowledge and systems to keep momentum burning.',
   },
 ];
 
-const focus = [
-  'GENERATIVE AI', 'LLMs', 'AI AGENTS', 'RAG', 'PROMPT ENGINEERING',
-  'WORKFLOW AUTOMATION', 'DATA STRATEGY', 'AI LITERACY', 'CHANGE MANAGEMENT',
-  'RESPONSIBLE AI', 'RAPID PROTOTYPING', 'TEAM ENABLEMENT',
+const principles = [
+  ['Listen', 'first: discovery before any recommendation'],
+  ['Teach', 'as we build, so capability stays in-house'],
+  ['Ship', 'real systems, not slideware'],
+  ['Honest', 'about where AI fits — and where it doesn\'t'],
 ];
 ---
-<section class="approach" id="approach">
-  <div class="section__container">
-    <div class="section__header">
-      <span class="section__number">03</span>
-      <h2 class="section__title">APPROACH<span class="accent">_</span></h2>
-      <div class="section__line"></div>
-    </div>
-    <div class="approach__intro reveal">
-      <p class="approach__intro-text">
-        A simple, proven path &mdash; from the first spark of an idea to lasting impact<span class="accent">.</span>
+<section class="approach band" id="approach">
+  <div class="wrap">
+    <div class="approach-head">
+      <div>
+        <span class="kicker kicker--onDark">Our approach</span>
+        <h2 class="approach-h h-em">A simple, proven path <em>from spark to impact.</em></h2>
+      </div>
+      <p>
+        Every engagement follows the same four stages, whether it's a single
+        workshop or a production build. You always know where you are, and
+        what comes next.
       </p>
     </div>
-    <div class="approach__grid">
-      {steps.map((step) => (
-        <div class="approach__step reveal">
-          <span class="approach__step-number">{step.n}</span>
-          <h3 class="approach__step-title">{step.title}</h3>
-          <p class="approach__step-desc">{step.desc}</p>
-        </div>
+    <ol class="cycle">
+      {steps.map((s) => (
+        <li>
+          <span class="cycle-n">{s.n}</span>
+          <h3>{s.title}</h3>
+          <p>{s.desc}</p>
+        </li>
+      ))}
+    </ol>
+    <div class="approach-stats">
+      {principles.map(([b, t]) => (
+        <div><b>{b}</b><span>{t}</span></div>
       ))}
     </div>
-    <div class="approach__focus">
-      <span class="approach__focus-label">FOCUS AREAS //</span>
-      <div class="approach__focus-scroll">
-        <div class="approach__focus-track">
-          {focus.map((item) => <span class="approach__focus-item">{item}</span>)}
-          {focus.map((item) => <span class="approach__focus-item" aria-hidden="true">{item}</span>)}
-        </div>
-      </div>
-    </div>
+    <a class="btn btn-ember" href="#contact">Start with a discovery call <span aria-hidden="true">→</span></a>
   </div>
 </section>
 
 <style>
-  .approach {
-    background: var(--dark);
-    position: relative;
-  }
-
-  .approach::before {
+  .approach::after {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(to right, transparent, var(--accent), transparent);
+    top: -120px;
+    right: -200px;
+    width: 700px;
+    height: 300px;
+    border: 2px solid rgba(255, 122, 26, 0.22);
+    border-radius: 50%;
+    transform: rotate(-12deg);
+    pointer-events: none;
   }
 
-  .approach__intro {
-    margin-bottom: var(--space-lg);
-    max-width: 600px;
-  }
-
-  .approach__intro-text {
-    font-size: 1.25rem;
-    line-height: 1.6;
-    color: var(--gray-light);
-  }
-
-  .approach__grid {
+  .approach-head {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0;
-    margin-bottom: var(--space-xl);
+    grid-template-columns: 1fr 1fr;
+    align-items: end;
+    gap: 48px;
+    margin-bottom: 44px;
   }
 
-  .approach__step {
-    padding: var(--space-md);
-    border: 1px solid var(--gray-dark);
-    border-right: none;
-    position: relative;
-    transition: all 0.3s ease;
-  }
-
-  .approach__step:last-child {
-    border-right: 1px solid var(--gray-dark);
-  }
-
-  .approach__step::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--flame);
-    transition: width 0.4s ease;
-  }
-
-  .approach__step:hover::before {
-    width: 100%;
-  }
-
-  .approach__step:hover {
-    background: var(--dark-mid);
-    border-color: var(--accent-dim);
-  }
-
-  .approach__step-number {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    color: var(--accent);
-    display: block;
-    margin-bottom: var(--space-sm);
-  }
-
-  .approach__step-title {
+  .approach-h {
+    margin-top: 12px;
     font-family: var(--font-display);
     font-weight: 900;
-    font-size: 1.5rem;
-    letter-spacing: 0.02em;
-    margin-bottom: var(--space-sm);
+    font-size: clamp(36px, 5vw, 60px);
+    line-height: 1;
+    letter-spacing: -0.03em;
   }
 
-  .approach__step-desc {
-    font-size: 0.88rem;
-    color: var(--gray-light);
-    line-height: 1.7;
+  .approach-head p {
+    font-size: 18px;
+    color: var(--soft-dark);
   }
 
-  .approach__focus {
-    border-top: 1px solid var(--gray-dark);
-    padding-top: var(--space-md);
-    display: flex;
-    align-items: center;
-    gap: var(--space-md);
+  .cycle {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     overflow: hidden;
+    border: 1px solid var(--line-dark);
+    border-radius: var(--r);
   }
 
-  .approach__focus-label {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    color: var(--gray);
-    white-space: nowrap;
-    flex-shrink: 0;
+  .cycle li {
+    position: relative;
+    padding: 26px 22px;
+    background: var(--ink-2);
+    border-right: 1px solid var(--line-dark);
   }
 
-  .approach__focus-scroll {
-    overflow: hidden;
-    flex: 1;
-    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-  }
+  .cycle li:last-child { border-right: 0; }
 
-  .approach__focus-track {
-    display: flex;
-    gap: var(--space-md);
-    animation: marquee 35s linear infinite;
-    width: max-content;
-  }
-
-  .approach__focus-item {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    color: var(--gray-light);
-    white-space: nowrap;
-    padding: 0.3rem 0.75rem;
-    border: 1px solid var(--gray-dark);
-    transition: all 0.3s ease;
-  }
-
-  .approach__focus-item:hover {
-    border-color: var(--accent);
+  .cycle li::after {
+    content: '→';
+    position: absolute;
+    top: 24px;
+    right: -9px;
+    z-index: 1;
+    background: var(--ink-2);
+    font-size: 14px;
     color: var(--accent);
   }
 
-  @media (max-width: 1024px) {
-    .approach__grid {
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .approach__step {
-      border-right: 1px solid var(--gray-dark);
-    }
-
-    .approach__step:nth-child(odd) {
-      border-right: none;
-    }
+  .cycle li:last-child::after {
+    content: '✦';
+    right: 18px;
   }
 
-  @media (max-width: 600px) {
-    .approach__grid {
+  .cycle-n {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--accent);
+  }
+
+  .cycle h3 {
+    margin: 6px 0 8px;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 24px;
+  }
+
+  .cycle p {
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--muted-dark);
+  }
+
+  .approach-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin: 36px 0;
+  }
+
+  .approach-stats div {
+    padding-top: 14px;
+    border-top: 2px solid var(--accent);
+  }
+
+  .approach-stats b {
+    display: block;
+    margin-bottom: 8px;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 34px;
+    line-height: 1;
+    color: var(--white-pure);
+  }
+
+  .approach-stats span {
+    font-size: 14px;
+    color: var(--muted-dark);
+  }
+
+  @media (max-width: 1000px) {
+    .approach-head {
       grid-template-columns: 1fr;
+      gap: 18px;
     }
 
-    .approach__step {
-      border-right: 1px solid var(--gray-dark);
-      border-bottom: none;
+    .cycle { grid-template-columns: repeat(2, 1fr); }
+    .cycle li:nth-child(2) { border-right: 0; }
+    .cycle li:nth-child(-n + 2) { border-bottom: 1px solid var(--line-dark); }
+    .cycle li:nth-child(2)::after { content: '↓'; right: 18px; }
+    .approach-stats { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 560px) {
+    .cycle { grid-template-columns: 1fr; }
+
+    .cycle li {
+      border-right: 0;
+      border-bottom: 1px solid var(--line-dark);
     }
 
-    .approach__step:last-child {
-      border-bottom: 1px solid var(--gray-dark);
-    }
+    .cycle li:last-child { border-bottom: 0; }
+    .cycle li::after { content: '↓'; right: 18px; }
   }
 </style>

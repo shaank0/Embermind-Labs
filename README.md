@@ -65,8 +65,24 @@ The palette is derived from the EmberMind logo: ember orange (`#ff7a1a`), bright
 flame (`#ffb24d`), gold spark (`#ffcf5c`), and deep ember red (`#e8350d`) over a
 warm near-black. The wordmark pairs an elegant serif (Cormorant Garamond) for
 *Ember* with a clean sans (Inter / Space Grotesk) for *Mind Labs*, echoing the
-logo. Several to-be-filled placeholders are intentional:
+logo.
 
-- Contact form `action` (`formspree.io/f/YOUR_FORM_ID`)
-- Social links (LinkedIn, X)
-- `hello@embermindlabs.com` and the production `site` URL in `astro.config.mjs`
+The layout is editorial: dark "ink" bands (hero, approach, contact) alternate
+with warm cream "paper" sections. On paper, accent text uses `--accent-dim`
+for readable contrast; on dark bands it uses `--accent`.
+
+## ✉️ Contact form
+
+Site-wide settings (email, social links, form backend) live in `src/config.ts`.
+
+The form posts to [Formspree](https://formspree.io) via `fetch`, with inline
+success and error messages and a honeypot spam field. To turn it on:
+
+1. Create a free Formspree form that delivers to the inbox you want.
+2. Copy its form ID (the part after `/f/` in the endpoint).
+3. Set `FORMSPREE_ID` in `src/config.ts` and redeploy.
+
+Until `FORMSPREE_ID` is set, submitting the form opens a pre-filled email draft
+to `site.email` in the visitor's mail app, so messages are never silently lost.
+
+Still to fill in: the real LinkedIn / X URLs in `src/config.ts`.

@@ -1,0 +1,46 @@
+---
+const focus = [
+  'Generative AI', 'LLMs', 'AI Agents', 'RAG', 'Prompt Engineering',
+  'Workflow Automation', 'Data Strategy', 'AI Literacy', 'Change Management',
+  'Responsible AI', 'Rapid Prototyping', 'Team Enablement',
+];
+---
+<div class="ticker" aria-label="Focus areas">
+  <div class="ticker-track">
+    {focus.map((item) => <span>{item}</span>)}
+    {focus.map((item) => <span aria-hidden="true">{item}</span>)}
+  </div>
+</div>
+
+<style>
+  .ticker {
+    overflow: hidden;
+    white-space: nowrap;
+    background: var(--flame);
+    color: var(--black);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .ticker-track {
+    display: inline-flex;
+    animation: tick 50s linear infinite;
+  }
+
+  .ticker-track span {
+    position: relative;
+    padding: 11px 28px;
+  }
+
+  .ticker-track span::before {
+    content: '■';
+    position: absolute;
+    top: 14px;
+    left: 4px;
+    font-size: 8px;
+    opacity: 0.55;
+  }
+</style>

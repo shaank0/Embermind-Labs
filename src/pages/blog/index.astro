@@ -1,7 +1,5 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import Nav from '../../components/Nav.astro';
-import Footer from '../../components/Footer.astro';
 import BlogCard from '../../components/BlogCard.astro';
 import { getCollection } from 'astro:content';
 
@@ -9,65 +7,65 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 <Layout title="Insights // EmberMind Labs" description="Practical perspectives on applied AI — strategy, education, and turning ideas into impact, from EmberMind Labs.">
-  <Nav />
-  <main class="blog-page">
-    <div class="section__container">
-      <div class="section__header">
-        <span class="section__number">INSIGHTS</span>
-        <h1 class="section__title">ALL INSIGHTS<span class="accent">_</span></h1>
-        <div class="section__line"></div>
+  <section class="page-hero band">
+    <div class="wrap">
+      <span class="kicker kicker--onDark">Insights</span>
+      <h1 class="page-h h-em">Practical perspectives on <em>applied AI.</em></h1>
+      <p>Strategy, education, and the craft of turning ideas into impact.</p>
+    </div>
+  </section>
+  <section class="feed">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="section-title">All insights</h2>
+        <span class="stamp">{posts.length} {posts.length === 1 ? 'article' : 'articles'}</span>
       </div>
-      <div class="blog__grid">
-        {posts.map(post => (
-          <BlogCard
-            title={post.data.title}
-            description={post.data.description}
-            pubDate={post.data.pubDate}
-            category={post.data.category}
-            tags={post.data.tags}
-            slug={post.id}
-          />
-        ))}
-      </div>
-      {posts.length === 0 && (
-        <p class="blog__empty">No insights published yet. Check back soon.</p>
+      {posts.length > 0 ? (
+        <div class="rows">
+          {posts.map((post, i) => (
+            <BlogCard
+              index={i + 1}
+              title={post.data.title}
+              description={post.data.description}
+              pubDate={post.data.pubDate}
+              category={post.data.category}
+              tags={post.data.tags}
+              slug={post.id}
+            />
+          ))}
+        </div>
+      ) : (
+        <p class="feed-empty">No insights published yet. Check back soon.</p>
       )}
     </div>
-  </main>
-  <Footer />
+  </section>
 </Layout>
 
 <style>
-  .blog-page {
-    padding-top: 100px;
-    background: var(--black);
-    min-height: 100vh;
+  .page-hero { padding: 56px 0; }
+
+  .page-h {
+    max-width: 18ch;
+    margin: 12px 0 16px;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(38px, 6vw, 68px);
+    line-height: 1;
+    letter-spacing: -0.03em;
   }
 
-  .blog__grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0;
+  .page-hero p {
+    font-size: 19px;
+    color: var(--soft-dark);
   }
 
-  .blog__empty {
+  .feed { min-height: 40vh; }
+
+  .rows { border-top: 1px solid var(--line); }
+
+  .feed-empty {
+    padding: 40px 0;
     font-family: var(--font-mono);
-    font-size: 0.85rem;
-    color: var(--gray-light);
-    letter-spacing: 0.1em;
-    text-align: center;
-    padding: var(--space-xl) 0;
-  }
-
-  @media (max-width: 1024px) {
-    .blog__grid {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .blog__grid {
-      grid-template-columns: 1fr;
-    }
+    color: var(--muted);
   }
 </style>

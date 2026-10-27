@@ -1,226 +1,263 @@
 ---
+import { site, FORMSPREE_ID } from '../config';
+
+const endpoint = FORMSPREE_ID ? `https://formspree.io/f/${FORMSPREE_ID}` : '';
 ---
-<section class="contact" id="contact">
-  <div class="section__container">
-    <div class="section__header">
-      <span class="section__number">05</span>
-      <h2 class="section__title">CONTACT<span class="accent">_</span></h2>
-      <div class="section__line"></div>
-    </div>
-    <div class="contact__grid">
-      <div class="contact__info reveal">
-        <h3 class="contact__headline">Let's light<br>the path<span class="accent">.</span></h3>
-        <p class="contact__text">
+<section class="contact band" id="contact">
+  <div class="wrap">
+    <div class="contact-inner">
+      <div>
+        <span class="kicker kicker--onDark">Start a conversation</span>
+        <h2 class="contact-h h-em">Let's light <em>the path.</em></h2>
+        <p>
           Exploring AI for your organization? Want to upskill your team, or build
           something real? Tell us where you're headed &mdash; we read every message.
         </p>
-        <div class="contact__channels">
-          <div class="contact__channel">
-            <span class="contact__channel-label">EMAIL //</span>
-            <a href="mailto:hello@embermindlabs.com" class="contact__channel-value">hello@embermindlabs.com</a>
-          </div>
-          <div class="contact__channel">
-            <span class="contact__channel-label">CONNECT //</span>
-            <div class="contact__social-links">
-              <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" class="contact__social-link">LINKEDIN</a>
-              <a href="https://x.com/" target="_blank" rel="noopener noreferrer" class="contact__social-link">X / TWITTER</a>
-            </div>
-          </div>
+        <div class="contact-list">
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+          <span>
+            <a href={site.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <span class="dot"> · </span>
+            <a href={site.x} target="_blank" rel="noopener noreferrer">X / Twitter</a>
+          </span>
         </div>
       </div>
-      <div class="contact__form-wrapper reveal">
-        <form class="contact__form" id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-          <div class="form__group">
-            <label class="form__label" for="name">NAME_</label>
-            <input type="text" id="name" name="name" class="form__input" required placeholder="Your name">
-          </div>
-          <div class="form__group">
-            <label class="form__label" for="email">EMAIL_</label>
-            <input type="email" id="email" name="email" class="form__input" required placeholder="your@email.com">
-          </div>
-          <div class="form__group">
-            <label class="form__label" for="subject">INTEREST_</label>
-            <select id="subject" name="subject" class="form__input form__select">
-              <option value="">Select a topic</option>
-              <option value="consulting">AI Strategy &amp; Consulting</option>
-              <option value="education">AI Education &amp; Training</option>
-              <option value="implementation">Implementation &amp; Builds</option>
-              <option value="speaking">Speaking / Workshops</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-          <div class="form__group">
-            <label class="form__label" for="message">MESSAGE_</label>
-            <textarea id="message" name="message" class="form__input form__textarea" rows="5" required placeholder="Tell us about your idea or goal..."></textarea>
-          </div>
-          <button type="submit" class="btn btn--primary btn--full">SEND MESSAGE</button>
-        </form>
-      </div>
+
+      <form
+        class="quote"
+        id="contactForm"
+        action={endpoint || undefined}
+        method="POST"
+        data-endpoint={endpoint}
+        data-email={site.email}
+      >
+        <label>Name<input name="name" autocomplete="name" required /></label>
+        <label>Email<input name="email" type="email" autocomplete="email" required /></label>
+        <label>Organization<input name="organization" autocomplete="organization" /></label>
+        <label>Interested in
+          <select name="interest" id="interest">
+            <option value="Not sure yet">Not sure yet</option>
+            <option value="AI Strategy & Consulting" data-key="consulting">AI Strategy &amp; Consulting</option>
+            <option value="AI Education & Training" data-key="education">AI Education &amp; Training</option>
+            <option value="Implementation & Builds" data-key="implementation">Implementation &amp; Builds</option>
+            <option value="Speaking / Workshops">Speaking / Workshops</option>
+            <option value="Other">Other</option>
+          </select>
+        </label>
+        <label class="full">Message<textarea name="message" rows="4" required placeholder="Tell us about your idea or goal..."></textarea></label>
+        <!-- Honeypot: humans never see or fill this; Formspree drops submissions that do -->
+        <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <input type="hidden" name="_subject" value="New inquiry from embermindlabs.ai" />
+        <button class="btn btn-ember full" type="submit">Send message <span aria-hidden="true">→</span></button>
+        <p class="form-status full" role="status" aria-live="polite"></p>
+      </form>
     </div>
   </div>
 </section>
 
-<style>
-  .contact {
-    background: var(--dark);
-    position: relative;
+<script>
+  const form = document.getElementById('contactForm') as HTMLFormElement | null;
+  const status = form?.querySelector<HTMLElement>('.form-status');
+  const button = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
+  const interest = document.getElementById('interest') as HTMLSelectElement | null;
+
+  // Service cards link here with data-interest; preselect the matching topic.
+  document.querySelectorAll<HTMLElement>('[data-interest]').forEach((card) => {
+    card.addEventListener('click', () => {
+      const opt = interest?.querySelector<HTMLOptionElement>(`option[data-key="${card.dataset.interest}"]`);
+      if (interest && opt) interest.value = opt.value;
+    });
+  });
+
+  function setStatus(text: string, kind: 'ok' | 'error' | '') {
+    if (!status) return;
+    status.textContent = text;
+    status.dataset.kind = kind;
   }
 
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!form || !button) return;
+
+    const data = new FormData(form);
+    if (data.get('_gotcha')) return;
+
+    const endpoint = form.dataset.endpoint;
+
+    // No form backend configured yet: hand off to the visitor's email client.
+    if (!endpoint) {
+      const body = [
+        `Name: ${data.get('name')}`,
+        `Email: ${data.get('email')}`,
+        `Organization: ${data.get('organization') || '-'}`,
+        `Interested in: ${data.get('interest')}`,
+        '',
+        String(data.get('message') ?? ''),
+      ].join('\n');
+      const subject = `Inquiry: ${data.get('interest')}`;
+      window.location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      setStatus('Opening your email app to send this message…', 'ok');
+      return;
+    }
+
+    const label = button.innerHTML;
+    button.disabled = true;
+    button.textContent = 'Sending…';
+    setStatus('', '');
+
+    try {
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        body: data,
+        headers: { Accept: 'application/json' },
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      form.reset();
+      setStatus("Thanks — your message is on its way. We'll be in touch soon.", 'ok');
+    } catch {
+      setStatus(`Something went wrong sending that. Please try again, or email us at ${form.dataset.email}.`, 'error');
+    } finally {
+      button.disabled = false;
+      button.innerHTML = label;
+    }
+  });
+</script>
+
+<style>
   .contact::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(to right, var(--accent), transparent 50%);
+    bottom: -180px;
+    left: -160px;
+    width: 640px;
+    height: 320px;
+    border: 2px solid rgba(255, 122, 26, 0.25);
+    border-radius: 50%;
+    transform: rotate(-10deg);
+    pointer-events: none;
   }
 
-  .contact__grid {
+  .contact-inner {
+    position: relative;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: var(--space-xl);
     align-items: start;
+    gap: 56px;
   }
 
-  .contact__headline {
+  .contact-h {
+    margin: 12px 0 18px;
     font-family: var(--font-display);
     font-weight: 900;
-    font-size: clamp(2rem, 4vw, 3rem);
-    line-height: 1.1;
-    margin-bottom: var(--space-md);
-    letter-spacing: -0.02em;
+    font-size: clamp(36px, 5vw, 60px);
+    line-height: 1;
+    letter-spacing: -0.03em;
   }
 
-  .contact__text {
-    font-size: 1rem;
-    color: var(--gray-light);
-    line-height: 1.8;
-    margin-bottom: var(--space-lg);
+  .contact-h em { display: block; }
+
+  .contact-inner > div > p {
+    max-width: 46ch;
+    font-size: 18px;
+    color: var(--soft-dark);
   }
 
-  .contact__channels {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
-  }
-
-  .contact__channel-label {
+  .contact-list {
+    display: grid;
+    gap: 8px;
+    margin-top: 28px;
     font-family: var(--font-mono);
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    color: var(--gray);
-    display: block;
-    margin-bottom: 0.5rem;
+    font-size: 14px;
+    color: var(--muted-dark);
   }
 
-  .contact__channel-value {
-    font-family: var(--font-mono);
-    font-size: 0.9rem;
-    color: var(--accent);
-    transition: color 0.2s ease;
-  }
-
-  .contact__channel-value:hover {
-    color: var(--accent-bright);
-  }
-
-  .contact__social-links {
-    display: flex;
-    gap: var(--space-sm);
-  }
-
-  .contact__social-link {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
+  .contact-list a {
     font-weight: 700;
-    letter-spacing: 0.1em;
-    color: var(--gray-light);
-    padding: 0.4rem 0.75rem;
-    border: 1px solid var(--gray-dark);
-    transition: all 0.3s ease;
+    color: var(--white-pure);
   }
 
-  .contact__social-link:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-    background: var(--accent-glow);
+  .contact-list a:hover { color: var(--accent); }
+
+  .quote {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    padding: 26px;
+    background: var(--ink-2);
+    border: 1px solid var(--line-dark);
+    border-radius: 14px;
   }
 
-  .contact__form-wrapper {
-    background: var(--black);
-    padding: var(--space-lg);
-    border: 1px solid var(--gray-dark);
-    position: relative;
-  }
-
-  .contact__form-wrapper::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: var(--flame);
-  }
-
-  .form__group {
-    margin-bottom: var(--space-md);
-  }
-
-  .form__label {
-    display: block;
+  .quote label {
+    display: grid;
+    gap: 6px;
     font-family: var(--font-mono);
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    color: var(--accent);
-    margin-bottom: 0.5rem;
+    font-size: 11.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted-dark);
   }
 
-  .form__input {
+  .quote .full { grid-column: 1 / -1; }
+
+  .quote input,
+  .quote select,
+  .quote textarea {
     width: 100%;
-    background: var(--dark);
-    border: 1px solid var(--gray-dark);
-    color: var(--white);
+    padding: 12px 14px;
+    background: var(--ink);
+    border: 1px solid var(--line-dark);
+    border-radius: 8px;
+    font: inherit;
     font-family: var(--font-primary);
-    font-size: 0.95rem;
-    padding: 0.85rem 1rem;
+    font-size: 16px;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--white-pure);
+  }
+
+  .quote textarea {
+    resize: vertical;
+    min-height: 110px;
+  }
+
+  .quote input::placeholder,
+  .quote textarea::placeholder { color: var(--gray); }
+
+  .quote input:focus,
+  .quote select:focus,
+  .quote textarea:focus {
     outline: none;
-    transition: border-color 0.3s ease;
-  }
-
-  .form__input::placeholder {
-    color: var(--gray);
-  }
-
-  .form__input:focus {
     border-color: var(--accent);
   }
 
-  .form__select {
-    cursor: pointer;
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23ff7a1a' stroke-width='1.5'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 1rem center;
+  .hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
   }
 
-  .form__textarea {
-    resize: vertical;
-    min-height: 120px;
+  .form-status {
+    min-height: 1.4em;
+    font-size: 15px;
   }
 
-  @media (max-width: 1024px) {
-    .contact__grid {
+  .form-status[data-kind='ok'] { color: var(--accent-2); }
+  .form-status[data-kind='error'] { color: #ff9a7a; }
+
+  @media (max-width: 900px) {
+    .contact-inner {
       grid-template-columns: 1fr;
-      gap: var(--space-lg);
+      gap: 36px;
     }
   }
 
-  @media (max-width: 768px) {
-    .contact__social-links {
-      flex-wrap: wrap;
+  @media (max-width: 520px) {
+    .quote {
+      grid-template-columns: 1fr;
+      padding: 20px;
     }
   }
 </style>

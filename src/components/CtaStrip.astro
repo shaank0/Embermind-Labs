@@ -1,0 +1,87 @@
+---
+import { site } from '../config';
+---
+<section class="cta-strip">
+  <div class="wrap">
+    <div class="cta-inner">
+      <span class="cta-label">Got an idea?</span>
+      <div>
+        <div class="cta-h">Have an AI idea that's still <em>just a spark?</em></div>
+        <p>Tell us where you're headed. We'll tell you honestly whether AI fits, and what we'd do first.</p>
+      </div>
+      <div class="cta-actions">
+        <a class="btn btn-ink" href="#contact">Start a conversation <span aria-hidden="true">→</span></a>
+        <span>or <a href={`mailto:${site.email}`}>email us</a></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-strip { padding: 0 0 72px; }
+
+  .cta-inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 24px;
+    padding: 30px 32px;
+    background: var(--sand);
+    border: 1px dashed var(--accent);
+    border-radius: var(--r);
+  }
+
+  .cta-label {
+    position: absolute;
+    top: -10px;
+    left: 24px;
+    padding: 0 8px;
+    background: var(--paper);
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+  }
+
+  .cta-h {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 26px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  .cta-h em {
+    font-style: normal;
+    color: var(--accent-ink);
+  }
+
+  .cta-inner p {
+    margin-top: 6px;
+    color: var(--muted);
+  }
+
+  .cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  .cta-actions a:not(.btn) {
+    font-weight: 700;
+    color: var(--text);
+    border-bottom: 1px solid var(--accent);
+  }
+
+  @media (max-width: 760px) {
+    .cta-inner {
+      grid-template-columns: 1fr;
+      padding: 28px 20px;
+    }
+  }
+</style>
